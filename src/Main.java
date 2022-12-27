@@ -62,6 +62,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        System.out.println("계산하려는 식을 입력하세요 : ");
         String expression = input();
         String[] seperateExpression = seperate(expression);
         try {
