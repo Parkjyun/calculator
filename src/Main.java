@@ -32,7 +32,7 @@ public class Main {
 
         if(operator == '/')
             return divide(firstvalue, secondvalue);
-        System.out.println("잘못된 값 입력");
+        else System.out.println("잘못된 값 입력");
         throw new IllegalArgumentException();
 
     }
@@ -46,7 +46,10 @@ public class Main {
     }
 
     public static double calculateString(String[] str){
-        double result = toDouble(str[0]); //미리 작성했던 메소드를 이용
+        double result = toDouble(str[0]);
+        if(str.length < 3) { // 2개의 숫자만 적었을 때 예외 발생시킴
+            throw new IllegalArgumentException();
+        }
         for(int i = 0; i < str.length - 2; i += 2){
             result = calculate(result, str[i + 1].charAt(0), toDouble(str[i + 2])); //charAt 을 이용해서 String 한글자를 char로 변경
 
@@ -56,16 +59,17 @@ public class Main {
 
     public static String input() {
         String str = new Scanner(System.in).nextLine();
-        String[] strarr = str.split(" ");
+        if(str == null) throw new IllegalArgumentException();
 
         return str;
     }
 
     public static void main(String[] args) {
         System.out.println("계산하려는 식을 입력하세요 : ");
-        String expression = input();
-        String[] seperateExpression = seperate(expression);
+
         try {
+            String expression = input();
+            String[] seperateExpression = seperate(expression);
             double num = calculateString(seperateExpression);
             System.out.println(num);
         } catch (IllegalArgumentException e) {
